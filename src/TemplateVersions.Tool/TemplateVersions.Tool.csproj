@@ -20,7 +20,7 @@
     <Authors>Victorio Berra (toryberra@gmail.com)</Authors>
     <PackageId>TemplateVersions.Tool</PackageId>
     <Description>Lists all the versions of dotnet core SDKs in your user template directory and the global tools for each version.</Description>
-    <PackageTags>sri;cli;sri hash;subresource integrity</PackageTags>
+    <PackageTags>dotnet;core;template versions</PackageTags>
     <PackageProjectUrl>https://github.com/VictorioBerra/TemplateVersions.Tool</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/VictorioBerra/TemplateVersions.Tool/blob/master/LICENSE</PackageLicenseUrl>
 
