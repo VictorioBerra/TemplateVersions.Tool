@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>templateversions</ToolCommandName>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    
+    <VersionPrefix>0.1.1</VersionPrefix>
+    <VersionSuffix>build</VersionSuffix>
+    <SourceRevisionId>$(APPVEYOR_REPO_COMMIT)</SourceRevisionId>
+    <PackageVersion Condition="'$(APPVEYOR_REPO_TAG)' == 'true'">$(VersionPrefix)</PackageVersion>
+    <BuildNumber Condition=" '$(BuildNumber)' == '' ">$(APPVEYOR_BUILD_NUMBER)</BuildNumber>
+    <BuildNumber Condition=" '$(BuildNumber)' == '' ">0</BuildNumber>
+    <FileVersion>$(VersionPrefix).$(BuildNumber)</FileVersion>
+    <VersionSuffix Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix).$(BuildNumber)</VersionSuffix>
+    
+    <Authors>Victorio Berra (toryberra@gmail.com)</Authors>
+    <PackageId>TemplateVersions.Tool</PackageId>
+    <Description>Lists all the versions of dotnet core SDKs in your user template directory and the global tools for each version.</Description>
+    <PackageTags>sri;cli;sri hash;subresource integrity</PackageTags>
+    <PackageProjectUrl>https://github.com/VictorioBerra/TemplateVersions.Tool</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/VictorioBerra/TemplateVersions.Tool/blob/master/LICENSE</PackageLicenseUrl>
+
+    <LangVersion>latest</LangVersion>
+    
+    <RootNamespace>TemplateVersions.Tool</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.3.4" />
+  </ItemGroup>
+
+</Project>
