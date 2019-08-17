@@ -18,6 +18,9 @@ deploy:
       secure: 'Ct/FzRmVW44GcMstu2xsuGj05FqNBR2+b4CjjEgBfxCscUhi5UdnlnSSBjYVgjgn'
     skip_symbols: false
     artifact: Packages
+    on:
+      branch: master
+      appveyor_repo_tag: true
   - provider: GitHub
     description: 'https://github.com/VictorioBerra/TemplateVersions.Tool'
     auth_token:
