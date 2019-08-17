@@ -1,4 +1,4 @@
-version: 1.5.{build}
+version: 1.6.{build}
 branches:
   only:
     - master
@@ -16,7 +16,7 @@ deploy:
   - provider: NuGet
     api_key:
       secure: wx8j2w1p52uY8AoKpSDTNQBn5Hiqs4YyYalgpjyeZOAx4qizG7IGKaQkX56cOq7b
-    skip_symbols: false
+    skip_symbols: true
     artifact: Packages
     on:
       branch: master
