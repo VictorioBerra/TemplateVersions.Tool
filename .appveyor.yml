@@ -12,6 +12,7 @@ artifacts:
   - path: '**\*.nupkg'
     name: Packages
     type: NuGetPackages
+deploy:
   - provider: GitHub
     tag: v$(appveyor_build_version)
     description: 'https://github.com/VictorioBerra/TemplateVersions.Tool'
