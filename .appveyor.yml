@@ -1,3 +1,10 @@
+init:
+  - ps |
+  $env:PACKAGE_VERSION = "$env:APPVEYOR_BUILD_VERSION";
+  if($env:APPVEYOR_REPO_TAG_NAME -ne $null) {
+    $env:PACKAGE_VERSION = "$env:APPVEYOR_REPO_TAG_NAME";
+    $env:PACKAGE_VERSION = ($env:PACKAGE_VERSION).Replace("v", "");
+  }
 version: 1.7.{build}
 branches:
   only:
@@ -6,7 +13,7 @@ branches:
 skip_branch_with_pr: true
 os: Visual Studio 2017
 build_script:
-  - ps: 'dotnet pack -c Release -o "$(pwd)/artifacts/" "-p:Version=${env:APPVEYOR_BUILD_VERSION}"'
+  - ps: 'dotnet pack -c Release -o "$(pwd)/artifacts/" "-p:Version=${env:PACKAGE_VERSION}"'
 test: off
 artifacts:
   - path: '**\*.nupkg'
@@ -22,6 +29,7 @@ deploy:
       branch: master
       appveyor_repo_tag: true
   - provider: GitHub
+    tag: v$(APPVEYOR_REPO_TAG_NAME)
     description: 'https://github.com/VictorioBerra/TemplateVersions.Tool'
     auth_token:
       secure: eYbKSKRTUpYFx1+8DzRYnROrYB4VJuYBBKSb7sFsqO3wOBi2jrJ88ioxrLpHDqI3
