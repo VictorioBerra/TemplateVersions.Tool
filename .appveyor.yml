@@ -1,10 +1,10 @@
 init:
   - ps: |
-  $env:PACKAGE_VERSION = "$env:APPVEYOR_BUILD_VERSION";
-  if($env:APPVEYOR_REPO_TAG_NAME -ne $null) {
-    $env:PACKAGE_VERSION = "$env:APPVEYOR_REPO_TAG_NAME";
-    $env:PACKAGE_VERSION = ($env:PACKAGE_VERSION).Replace("v", "");
-  }
+      $env:PACKAGE_VERSION = "$env:APPVEYOR_BUILD_VERSION";
+      if($env:APPVEYOR_REPO_TAG_NAME -ne $null) {
+        $env:PACKAGE_VERSION = "$env:APPVEYOR_REPO_TAG_NAME";
+        $env:PACKAGE_VERSION = ($env:PACKAGE_VERSION).Replace("v", "");
+      }
 version: 2.0.{build}
 branches:
   only:
