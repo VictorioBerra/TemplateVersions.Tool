@@ -5,7 +5,7 @@ init:
     $env:PACKAGE_VERSION = "$env:APPVEYOR_REPO_TAG_NAME";
     $env:PACKAGE_VERSION = ($env:PACKAGE_VERSION).Replace("v", "");
   }
-version: 1.7.{build}
+version: 2.0.{build}
 branches:
   only:
     - master
