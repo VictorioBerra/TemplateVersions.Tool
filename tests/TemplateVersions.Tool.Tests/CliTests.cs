@@ -65,6 +65,38 @@ namespace TemplateVersions.Tool.Tests
 
         }
 
+        [Fact]
+        public void CLI_Should_List_Installed_Template_Versions_For_ALL_SDKs()
+        {
+            // Arrange
+            var cli = new Program(testConsole);
+            cli.InvokeMain(new string[] { "--list" });
+            var latestSDK = sw.ToString().Split(new[] { '\r', '\n' }).First();
+
+            // Act
+            cli.InvokeMain(new string[] { "--all" });
+
+            // Assert
+            // We assume theres at least one...
+            sw.ToString().Should().ContainAll("------", latestSDK);
+
+        }
+
+        [Fact]
+        public void CLI_Should_List_Installed_Template_Versions_For_ALL_SDKs_and_not_list_versions()
+        {
+            // Arrange
+            var cli = new Program(testConsole);
+
+            // Act
+            cli.InvokeMain(new string[] { "--all" });
+
+            // Assert
+            // We assume theres at least one of the built-ins...
+            sw.ToString().Should().Contain("common");
+
+        }
+
         public void Dispose()
         {
             sw.Dispose();

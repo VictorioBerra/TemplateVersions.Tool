@@ -33,6 +33,12 @@ namespace TemplateVersions.Tool
         [Option(Description = "List SDK version in .templateengine directory and exit.")]
         public bool list { get; }
 
+        [Option(Description = "List all templates across all your installed SDKs.")]
+        public bool all { get; }
+
+        [Option(Description = "Like --all, except removes SDK versions and orders the ouput.")]
+        public bool noversionall { get; }
+
         private void OnExecute()
         {
             var templatePath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @".templateengine\dotnetcli");
@@ -43,6 +49,52 @@ namespace TemplateVersions.Tool
             if (list)
             {
                 coreSdkVersions.ForEach(directory => _console.WriteLine(directory.StripFullPathFromDirectory()));
+                return;
+            }
+
+            if (all || noversionall)
+            {
+                if(noversionall)
+                {                    
+                    var results = new List<string>();
+                    foreach (var directory in coreSdkVersions)
+                    {
+                        var directoryNoPath = directory.StripFullPathFromDirectory();
+                        var packagesPathForDirectory = Path.Join(templatePath, directoryNoPath, "packages");
+
+                        _console.WriteLine("DEBUG");
+                        _console.WriteLine(directoryNoPath);
+                        _console.WriteLine(packagesPathForDirectory);
+
+                        var filesForDirectory = new List<string>(Directory.EnumerateFiles(packagesPathForDirectory));
+
+                        _console.WriteLine("DEBUG 2");
+                        _console.WriteLine(filesForDirectory);
+
+                        results.AddRange(filesForDirectory.Select(x => x.StripFullPathFromDirectory()));
+                    }
+
+                    results.Sort();
+
+                    results.ForEach(file => _console.WriteLine(file));
+                }
+                else
+                {
+                    foreach (var directory in coreSdkVersions)
+                    {
+                        var directoryNoPath = directory.StripFullPathFromDirectory();
+
+                        _console.WriteLine(new string('-', 20));
+                        _console.WriteLine(directoryNoPath);
+                        _console.WriteLine(new string('-', 20));
+
+                        var packagesPathForDirectory = Path.Join(templatePath, directoryNoPath, "packages");
+                        var filesForDirectory = new List<string>(Directory.EnumerateFiles(packagesPathForDirectory));
+
+                        filesForDirectory.ForEach(file => _console.WriteLine(file.StripFullPathFromDirectory()));
+                    }
+                }
+
                 return;
             }
 
